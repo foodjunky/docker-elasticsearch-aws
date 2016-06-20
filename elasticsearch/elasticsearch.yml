@@ -1,0 +1,35 @@
+cluster.name: ${ES_CLUSTER_NAME}
+
+node:
+  master: ${ES_NODE_MASTER}
+  data: ${ES_NODE_DATA}
+
+path:
+  conf: /etc/elasticsearch
+  data: /elasticsearch/data
+  work: /elasticsearch/tmp
+  logs: /var/log/ext
+
+index:
+  number_of_shards: ${ES_SHARDS}
+  number_of_replicas: ${ES_REPLICAS}
+
+cache.memory.direct: false
+bootstrap.mlockall: true
+
+network:
+  publish_host: _ec2:privateIp_
+
+gateway:
+  type: local
+  recover_after_time: 5m
+  expected_nodes: ${ES_NODE_COUNT}
+
+cloud:
+  aws.region: ${ES_CLOUD_AWS_REGION}
+  node.auto_attributes: true
+
+discovery:
+  type: ec2
+  ec2.groups: ${ES_DISCOVERY_EC2_GROUPS}
+  zen.ping.multicast.enabled: false
